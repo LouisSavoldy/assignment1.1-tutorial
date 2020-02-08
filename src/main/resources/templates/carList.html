@@ -1,0 +1,60 @@
+<html>
+<head>
+	<title>Cars example</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" />
+	<!-- <link rel="stylesheet" th:href="@{/style.css}"></link> -->
+</head>
+
+<body>
+	<div class="container">
+		<h2>Add a car</h2>
+		<form class="user-form" method="POST">
+			<label for="year">Year:</label> <input type="text" name="year"
+				size="4" class="form-control"></input><br /> <label for="make">Make:</label>
+				<input type="text" name="make" size="50" class="form-control"></input><br />
+			<label for="model">Model:</label> <input type="text" name="model"
+				size="50" class="form-control"></input><br /> 
+			<label for="color">Color:</label>
+				<input type="text" name="color" size="25" class="form-control"></input><br />
+			<label for="notes">Notes:</label><br />
+				<textarea name="notes" cols="80" rows="5" class="form-control"></textarea>
+			<br />
+			<button type="submit" class="btn btn-primary">Submit</button>
+			<button class="btn btn-danger" type="reset">Reset</button>
+		</form>
+	</div>
+
+	<div  class="container">
+		<hr />
+		<div th:unless="${#lists.isEmpty(cars)}">
+			<h2>Inserted car along with other cars that match this color:</h2>
+			<table 
+				class="table table-bordered">
+				<thead>
+					<tr>
+						<th>Year</th>
+						<th>Make</th>
+						<th>Model</th>
+						<th>Color</th>
+						<th>Notes</th>
+					</tr>
+				</thead>
+				<tbody th:each="car : ${cars}">
+					<tr class="carHeadline">
+						<td th:text="${car.year}"></td>
+						<td th:text="${car.make}"></td>
+						<td th:text="${car.model}"></td>
+						<td th:text="${car.color}"></td>
+						<td th:if="${car.notes}" th:text="${car.notes}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div th:if="${#lists.isEmpty(cars)}" class="alert alert-warning">
+			<strong>Info!</strong>You have no cars in your car list
+		</div>
+	</div>
+</body>
+</html>
